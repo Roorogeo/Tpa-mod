@@ -1,0 +1,27 @@
+{
+	"schemaVersion": 1,
+	"id": "tpamod",
+	"version": "${version}",
+	"name": "TPA Mod",
+	"description": "Simple teleport requests, homes and warps with a 10 second no-move warmup and permission support.",
+	"authors": [
+		"Roorogeo"
+	],
+	"contact": {
+		"sources": "https://github.com/Roorogeo/Tpa-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/tpamod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.roorogeo.tpamod.TpaMod"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
