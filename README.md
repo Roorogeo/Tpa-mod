@@ -56,7 +56,7 @@ The home limit is resolved in this order:
 2. Integer meta `tpamod:max_homes`, e.g. `/lp group vip meta set tpamod:max_homes 10`
 3. Highest granted `tpamod.homes.limit.<n>`, e.g. `/lp group vip permission set tpamod.homes.limit.10 true`
    (only the values listed in `homeLimitSteps` in the config are checked)
-4. `defaultMaxHomes` from the config (3)
+4. `defaultMaxHomes` from the config (1)
 
 ## Config
 
@@ -67,7 +67,7 @@ The home limit is resolved in this order:
   "warmupSeconds": 10,
   "moveTolerance": 0.2,
   "requestTimeoutSeconds": 60,
-  "defaultMaxHomes": 3,
+  "defaultMaxHomes": 1,
   "homeLimitSteps": [1, 2, 3, 5, 10, 15, 20, 25, 50, 100]
 }
 ```

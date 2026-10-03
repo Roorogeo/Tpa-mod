@@ -30,7 +30,7 @@ public final class ModConfig {
 	/** Seconds before an unanswered /tpa request expires. */
 	public int requestTimeoutSeconds = 60;
 	/** Homes a player gets when no permission or option says otherwise. */
-	public int defaultMaxHomes = 3;
+	public int defaultMaxHomes = 1;
 	/** Values checked for tpamod.homes.limit.<n> permission nodes. The highest granted one wins. */
 	public List<Integer> homeLimitSteps = List.of(1, 2, 3, 5, 10, 15, 20, 25, 50, 100);
 
