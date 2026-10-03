@@ -31,6 +31,8 @@ public final class TextFormatter {
 		}
 	}
 
+	private static final String COLOR_CODES = "0123456789abcdef";
+
 	private TextFormatter() {
 	}
 
@@ -213,7 +215,7 @@ public final class TextFormatter {
 			return allowed.colors() || allowed.formats() ? Style.EMPTY : null;
 		}
 
-		if (formatting.isColor()) {
+		if (COLOR_CODES.indexOf(code) >= 0) {
 			return allowed.colors() ? Style.EMPTY.withColor(formatting) : null;
 		}
 
