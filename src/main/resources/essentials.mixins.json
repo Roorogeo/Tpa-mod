@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.roorogeo.essentials.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"ChunkMapAccessor",
+		"ServerCommonPacketListenerImplMixin",
+		"ServerPlayerMixin",
+		"TrackedEntityInvoker"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

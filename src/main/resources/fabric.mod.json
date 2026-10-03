@@ -1,27 +1,32 @@
 {
 	"schemaVersion": 1,
-	"id": "tpamod",
+	"id": "essentials",
 	"version": "${version}",
-	"name": "TPA Mod",
-	"description": "Simple teleport requests, homes and warps with a 10 second no-move warmup and permission support.",
+	"name": "Essentials",
+	"description": "Server-side essentials for Fabric: teleports, homes, warps, TPA, chat, economy, kits, moderation and combat tagging, with a permission node for everything. Vanilla clients can join without installing anything.",
 	"authors": [
 		"Roorogeo"
 	],
 	"contact": {
-		"sources": "https://github.com/Roorogeo/Tpa-mod"
+		"sources": "https://github.com/Roorogeo/Tpa-mod",
+		"issues": "https://github.com/Roorogeo/Tpa-mod/issues"
 	},
 	"license": "MIT",
-	"icon": "assets/tpamod/icon.png",
-	"environment": "*",
+	"icon": "assets/essentials/icon.png",
+	"environment": "server",
 	"entrypoints": {
 		"main": [
-			"com.roorogeo.tpamod.TpaMod"
+			"com.roorogeo.essentials.Essentials"
 		]
 	},
+	"mixins": [
+		"essentials.mixins.json"
+	],
 	"depends": {
 		"fabricloader": ">=0.19.5",
-		"minecraft": "~26.3",
+		"minecraft": "~26.2",
 		"java": ">=25",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"fabric-permissions-api-v0": "*"
 	}
 }
