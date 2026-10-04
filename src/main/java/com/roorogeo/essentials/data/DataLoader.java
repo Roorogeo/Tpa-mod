@@ -42,10 +42,19 @@ public final class DataLoader {
 		CompletableFuture<Map<String, Location>> jails = NamedLocations.JAILS.readAsync();
 		CompletableFuture<Optional<Location>> spawn = SpawnStore.readAsync();
 		CompletableFuture<JsonObject> kits = KitStore.readAsync();
+		CompletableFuture<Optional<HomewarpsImport.Found>> homewarps = HomewarpsImport.readAsync(server);
 
-		CompletableFuture.allOf(players, warps, jails, spawn, kits).handle((ignored, error) -> {
+		CompletableFuture.allOf(players, warps, jails, spawn, kits, homewarps).handle((ignored, error) -> {
 			server.execute(() -> {
 				install(players, "player data", PlayerDataStore::install);
+
+				// Never import on top of player data that failed to load: saving would replace the real files.
+				if (players.isCompletedExceptionally()) {
+					Essentials.LOGGER.error("Not importing {} because player data could not be loaded", HomewarpsImport.FILE_NAME);
+				} else {
+					install(homewarps, HomewarpsImport.FILE_NAME, found -> HomewarpsImport.install(server, found));
+				}
+
 				install(warps, "warps.json", NamedLocations.WARPS::install);
 				install(jails, "jails.json", NamedLocations.JAILS::install);
 				install(spawn, "spawn.json", SpawnStore::install);

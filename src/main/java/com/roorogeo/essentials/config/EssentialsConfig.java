@@ -111,6 +111,11 @@ public final class EssentialsConfig {
 		public boolean listWhenAmbiguous = true;
 		/** Let players set homes in these dimensions only. Empty allows every dimension. */
 		public List<String> allowedDimensions = new ArrayList<>();
+		/**
+		 * On startup, import homes from the previous home mod's homewarps.json (if the file exists),
+		 * then rename it to homewarps.json.imported so it only happens once.
+		 */
+		public boolean importHomewarps = true;
 	}
 
 	public static final class Warps {

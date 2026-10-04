@@ -108,10 +108,18 @@ public final class PlayerDataStore {
 
 	/** Data of an online player, created on first use. */
 	public static PlayerData get(ServerPlayer player) {
-		PlayerData data = DATA.get(player.getUUID());
+		return getOrCreate(player.getUUID(), player.getGameProfile().name());
+	}
+
+	/**
+	 * Data of any player, created when they have none yet (also used to import homes of players who
+	 * haven't joined since Essentials was installed). {@code name} may be empty if it isn't known.
+	 */
+	public static PlayerData getOrCreate(UUID uuid, String name) {
+		PlayerData data = DATA.get(uuid);
 
 		if (data == null) {
-			data = new PlayerData(player.getUUID(), player.getGameProfile().name());
+			data = new PlayerData(uuid, name);
 			data.firstJoin = System.currentTimeMillis();
 			data.balance = ConfigManager.config().economy.startingBalance;
 			data.markDirty();
