@@ -46,10 +46,10 @@ and **every behavior, number and message is configurable**.
 
 ## At a glance
 
-- **Permissions**: 153 nodes. Player commands default to everyone, staff commands and all bypass nodes
+- **Permissions**: 155 nodes. Player commands default to everyone, staff commands and all bypass nodes
   default to operators (level 2). Change any default in `config.json` → `permissions.defaults`.
 - **Commands**: 82 commands, 144 names including default aliases. Turn any off, rename or alias it, or give it a cooldown in
   `config.json` → `commands`.
-- **Messages**: 335 messages, all editable, with `&` colors, `&#RRGGBB` hex colors and placeholders.
+- **Messages**: 333 messages, all editable, with `&` colors, `&#RRGGBB` hex colors and placeholders.
 - **Data**: one JSON file per player, read and written on a background thread; logins wait for data
   to load at startup so the server thread never touches the disk.

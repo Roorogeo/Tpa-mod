@@ -9,11 +9,11 @@ import com.roorogeo.essentials.data.NamedLocations;
 import com.roorogeo.essentials.perm.PermissionNodes;
 
 /**
- * {@code /jails}: lists jails. Uses the {@code essentials.jail} node.
+ * {@code /jails}: lists jails.
  */
 public final class JailsCommand extends EssentialsCommand {
 	public JailsCommand() {
-		super("jails", PermissionNodes.JAIL);
+		super("jails", PermissionNodes.JAILS);
 	}
 
 	@Override

@@ -16,7 +16,6 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
 import com.roorogeo.essentials.command.EssentialsCommand;
@@ -27,6 +26,7 @@ import com.roorogeo.essentials.data.PlayerDataStore;
 import com.roorogeo.essentials.perm.PermissionNodes;
 import com.roorogeo.essentials.perm.Perms;
 import com.roorogeo.essentials.service.ChatService;
+import com.roorogeo.essentials.text.DisplayNames;
 import com.roorogeo.essentials.text.Messages;
 import com.roorogeo.essentials.util.Durations;
 import com.roorogeo.essentials.util.PlayerLookup;
@@ -142,18 +142,18 @@ public final class MailCommand extends EssentialsCommand {
 
 		send(source, "mail.sent", "player", target.name);
 		ChatService.spy(source.getServer(), "mail.spy", sender == null ? new UUID(0, 0) : sender.getUUID(), target.uuid,
-				"sender", source.getTextName(), "receiver", target.name, "message", message);
+				"sender", DisplayNames.plain(source), "receiver", target.name, "message", message);
 		return 1;
 	}
 
 	private static void deliver(CommandSourceStack source, PlayerData target, String message) {
 		ServerPlayer sender = source.getPlayer();
-		target.mail.add(new PlayerData.Mail(source.getTextName(), sender == null ? null : sender.getUUID(), System.currentTimeMillis(), message));
+		target.mail.add(new PlayerData.Mail(DisplayNames.plain(source), sender == null ? null : sender.getUUID(), System.currentTimeMillis(), message));
 		target.markDirty();
 		ServerPlayer online = online(source, target);
 
 		if (online != null) {
-			Messages.send(online, "mail.received", "sender", Component.literal(source.getTextName()));
+			Messages.send(online, "mail.received", "sender", DisplayNames.of(source));
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.roorogeo.essentials.text;
 
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
@@ -44,6 +45,30 @@ public final class DisplayNames {
 		return Component.empty()
 				.append(TextFormatter.parse(ConfigManager.config().nick.prefix))
 				.append(TextFormatter.parse(nickname));
+	}
+
+	/**
+	 * Name of whoever ran a command: the player's display name, {@code general.console-name} for the
+	 * server console, or the source's own name (command blocks, RCON).
+	 */
+	public static MutableComponent of(CommandSourceStack source) {
+		ServerPlayer player = source.getPlayer();
+
+		if (player != null) {
+			return of(player);
+		}
+
+		return isConsole(source) ? Messages.get("general.console-name") : Component.literal(source.getTextName());
+	}
+
+	/** {@link #of(CommandSourceStack)} as plain text. */
+	public static String plain(CommandSourceStack source) {
+		return of(source).getString();
+	}
+
+	/** The server console ("Server" is vanilla's name for it). */
+	public static boolean isConsole(CommandSourceStack source) {
+		return source.getEntity() == null && "Server".equals(source.getTextName());
 	}
 
 	/** Plain-text display name (nickname without colors, or account name). */

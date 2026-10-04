@@ -187,9 +187,13 @@ Details: [Combat Tagging](Combat-Tagging.md).
 
 | Key | Default | Meaning |
 |---|---|---|
-| `format-enabled` | `true` | Format public chat with `chat.format`. `false` keeps vanilla's signed chat (ignore lists, mutes and jail rules still apply). |
+| `format-enabled` | `true` | Format public chat with the formats below. `false` keeps vanilla's signed chat (ignore lists, mutes and jail rules still apply). |
+| `format` | `{prefix}{displayname}{suffix}&7: &f{message}` | The chat line. Placeholders `{displayname}`, `{name}`, `{prefix}`, `{suffix}`, `{world}`, `{message}`. |
+| `group-formats` | `admin`, `mod`, `vip` examples | Group name → format. A player with `essentials.chat.group.<name>` uses the first matching entry (file order) instead of `format`. |
+| `local-format` | `&7[L] {chat}` | Wraps the chat line when local chat is on; `{chat}` is the line from `format`/`group-formats`. |
+| `global-format` | `&6[G] {chat}` | Wraps the chat line for `global-prefix` messages while local chat is on. |
 | `local-radius` | `-1` | Radius in blocks for local chat; `-1` = everyone hears everything. |
-| `global-prefix` | `!` | With local chat on, messages starting with this go to everyone (`chat.global-format`). |
+| `global-prefix` | `!` | With local chat on, messages starting with this go to everyone (`global-format`). |
 | `log-to-console` | `true` | Log formatted chat lines to the console. |
 
 ## `messaging`

@@ -1,6 +1,6 @@
 # Permissions
 
-The complete list of 153 nodes, with descriptions and defaults, is in
+The complete list of 155 nodes, with descriptions and defaults, is in
 **[PERMISSIONS.md](../PERMISSIONS.md)** (generated from the code, so it is always exact). This page
 explains how checks work.
 

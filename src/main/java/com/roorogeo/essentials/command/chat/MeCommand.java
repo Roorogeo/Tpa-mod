@@ -34,8 +34,8 @@ public final class MeCommand extends EssentialsCommand {
 					TextFormatter.Allowed allowed = sender == null
 							? TextFormatter.Allowed.ALL
 							: ChatService.allowedCodes(sender, PermissionNodes.CHAT_COLOR, PermissionNodes.CHAT_FORMAT, PermissionNodes.CHAT_MAGIC);
-					Component name = sender == null ? source.getDisplayName() : DisplayNames.of(sender);
-					Component message = Messages.get("me.format", "displayname", name, "player", source.getTextName(), "message", TextFormatter.parseUser(text, allowed));
+					Component name = DisplayNames.of(source);
+					Component message = Messages.get("me.format", "displayname", name, "player", sender == null ? name.getString() : DisplayNames.realName(sender), "message", TextFormatter.parseUser(text, allowed));
 
 					for (ServerPlayer recipient : source.getServer().getPlayerList().getPlayers()) {
 						if (sender == null || !ChatService.ignores(recipient, sender)) {

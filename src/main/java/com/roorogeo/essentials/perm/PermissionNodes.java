@@ -130,6 +130,7 @@ public final class PermissionNodes {
 	public static final Node CHAT_COLOR = add("essentials.chat.color", Level.OP, CHAT, "Use & color codes (0-9, a-f and &#RRGGBB) in public chat.");
 	public static final Node CHAT_FORMAT = add("essentials.chat.format", Level.OP, CHAT, "Use &l &m &n &o &r formatting codes in public chat.");
 	public static final Node CHAT_MAGIC = add("essentials.chat.magic", Level.OP, CHAT, "Use the &k obfuscated code in public chat.");
+	public static final Node CHAT_GROUP = add("essentials.chat.group.<name>", Level.NONE, CHAT, "Chat with the format chat.group-formats.<name> from config.json. The first group in config order that a player has wins.");
 
 	// ---------------------------------------------------------------- Player
 	public static final Node HEAL = add("essentials.heal", Level.OP, PLAYER, "Use /heal to restore your health, hunger and remove fire.");
@@ -208,7 +209,8 @@ public final class PermissionNodes {
 	public static final Node TEMPBAN_EXEMPT = add("essentials.tempban.exempt", Level.OP, MODERATION, "Cannot be temp-banned (checked while online).");
 	public static final Node KICK = add("essentials.kick", Level.OP, MODERATION, "Use /kick <player> [reason].");
 	public static final Node KICK_EXEMPT = add("essentials.kick.exempt", Level.OP, MODERATION, "Cannot be kicked with /kick.");
-	public static final Node JAIL = add("essentials.jail", Level.OP, MODERATION, "Use /jail <player> <jail> [duration] [reason] and /jails.");
+	public static final Node JAIL = add("essentials.jail", Level.OP, MODERATION, "Use /jail <player> <jail> [duration] [reason].");
+	public static final Node JAILS = add("essentials.jails", Level.OP, MODERATION, "Use /jails to list jails.");
 	public static final Node JAIL_EXEMPT = add("essentials.jail.exempt", Level.OP, MODERATION, "Cannot be jailed while online.");
 	public static final Node SETJAIL = add("essentials.setjail", Level.OP, MODERATION, "Use /setjail <name> to create or move a jail.");
 	public static final Node DELJAIL = add("essentials.deljail", Level.OP, MODERATION, "Use /deljail <name>.");

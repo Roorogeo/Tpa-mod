@@ -31,7 +31,10 @@ public final class DamageEvents {
 			return false;
 		}
 
-		CombatService.onDamage(entity, source);
+		// Snowballs, eggs and ender pearls "hit" players for 0 damage; that isn't fighting.
+		if (amount > 0) {
+			CombatService.onDamage(entity, source);
+		}
 
 		if (entity instanceof ServerPlayer player) {
 			TeleportService.onDamage(player);

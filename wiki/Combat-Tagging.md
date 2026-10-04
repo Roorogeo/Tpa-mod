@@ -10,14 +10,15 @@ Indirect damage counts and is credited to the player behind it:
 | Source | Credited to |
 |---|---|
 | Melee | The attacker |
-| Arrows, spectral arrows, tridents, snowballs, eggs, fireballs, wind charges | The shooter (projectile owner) |
+| Arrows, spectral arrows, tridents, fireballs, wind charges, firework rockets | The shooter (projectile owner) |
 | Splash and lingering potions, area effect clouds | The thrower |
 | TNT | The player who lit it |
 | End crystals | The player who broke the crystal (vanilla credits the explosion to them) |
 | Tamed wolves, cats, parrots and other pets | The pet's owner |
 
 Attribution follows owner chains (e.g. an arrow shot by a player's pet... owner of owner), up to 4 levels.
-Hurting yourself (your own TNT, arrow straight up) never tags.
+Hurting yourself (your own TNT, arrow straight up) never tags. Hits that deal no damage (snowballs,
+eggs, ender pearls) don't tag either.
 
 With `combat.tag-on-mob-damage: true`, mobs hurting a player also tag them (only the player; the
 message is `combat.tagged-mob`).

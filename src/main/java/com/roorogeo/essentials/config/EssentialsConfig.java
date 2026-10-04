@@ -194,8 +194,22 @@ public final class EssentialsConfig {
 	}
 
 	public static final class Chat {
-		/** Format public chat with chat.format from messages.json. false leaves vanilla chat untouched (ignore lists still apply). */
+		/** Format public chat with the formats below. false leaves vanilla chat untouched (mutes and ignore lists still apply). */
 		public boolean formatEnabled = true;
+		/**
+		 * The chat line. Placeholders: {displayname} (nickname), {name} (account name), {prefix} and
+		 * {suffix} (prefix/suffix meta from LuckPerms), {world} and {message}.
+		 */
+		public String format = "{prefix}{displayname}{suffix}&7: &f{message}";
+		/**
+		 * Formats for groups, checked in order: a player with essentials.chat.group.<name> uses the
+		 * first matching entry instead of format. Same placeholders as format.
+		 */
+		public Map<String, String> groupFormats = defaultGroupFormats();
+		/** Wraps the chat line when local chat is on. {chat} is the line built from format or group-formats. */
+		public String localFormat = "&7[L] {chat}";
+		/** Wraps the chat line for messages sent to everyone with global-prefix while local chat is on. */
+		public String globalFormat = "&6[G] {chat}";
 		/** Radius in blocks for local chat. -1 sends chat to everyone. */
 		public int localRadius = -1;
 		/** Prefix that sends a message to everyone when local chat is on, e.g. "!hello". */
@@ -487,6 +501,15 @@ public final class EssentialsConfig {
 		map.put("rain", settings());
 		// Admin
 		map.put("essentials", settings("ess"));
+		return map;
+	}
+
+	/** Example group formats; nobody has essentials.chat.group.<name> by default, so they only apply once granted. */
+	private static Map<String, String> defaultGroupFormats() {
+		Map<String, String> map = new LinkedHashMap<>();
+		map.put("admin", "&4[Admin] &c{displayname}&7: &f{message}");
+		map.put("mod", "&2[Mod] &a{displayname}&7: &f{message}");
+		map.put("vip", "&6[VIP] &e{displayname}&7: &f{message}");
 		return map;
 	}
 

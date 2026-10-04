@@ -37,6 +37,7 @@ public final class DefaultMessages {
 		m.put("general.version", "&6Essentials &e{version}&6. Sub-commands: &e/essentials reload");
 		m.put("general.target-offline", "&e{player}&c is not online.");
 		m.put("general.no-reason", "No reason given");
+		m.put("general.console-name", "&dConsole");
 
 		// Durations
 		m.put("time.days", "{n}d");
@@ -169,9 +170,6 @@ public final class DefaultMessages {
 		m.put("combat.god-disabled", "&cGod mode disabled because you entered combat.");
 
 		// Chat
-		m.put("chat.format", "{prefix}{displayname}{suffix}&7: &f{message}");
-		m.put("chat.local-format", "&7[L] {prefix}{displayname}{suffix}&7: &f{message}");
-		m.put("chat.global-format", "&6[G] {prefix}{displayname}{suffix}&7: &f{message}");
 		m.put("chat.nobody-heard", "&7Nobody is close enough to hear you. Start your message with &e{global-prefix}&7 to talk to everyone.");
 		m.put("chat.muted", "&cYou are muted. &7Expires: {time}. Reason: {reason}");
 		m.put("chat.jailed", "&cYou can't chat while jailed.");

@@ -88,26 +88,31 @@ public final class ChatService {
 
 		String text = message.signedContent();
 		boolean local = config.localRadius >= 0;
-		String formatKey = "chat.format";
+		String wrapper = null;
 
 		if (local) {
 			if (!config.globalPrefix.isEmpty() && text.startsWith(config.globalPrefix) && text.length() > config.globalPrefix.length()) {
 				text = text.substring(config.globalPrefix.length()).stripLeading();
 				local = false;
-				formatKey = "chat.global-format";
+				wrapper = config.globalFormat;
 			} else {
-				formatKey = "chat.local-format";
+				wrapper = config.localFormat;
 			}
 		}
 
-		Component formatted = Messages.get(formatKey,
+		Component formatted = TextFormatter.format(format(sender, config), Messages.placeholders(
 				"displayname", DisplayNames.of(sender),
 				"name", DisplayNames.realName(sender),
 				"player", DisplayNames.realName(sender),
 				"prefix", meta(sender, "prefix"),
 				"suffix", meta(sender, "suffix"),
 				"world", Location.of(sender).worldName(),
-				"message", TextFormatter.parseUser(text, allowedCodes(sender, PermissionNodes.CHAT_COLOR, PermissionNodes.CHAT_FORMAT, PermissionNodes.CHAT_MAGIC)));
+				"message", TextFormatter.parseUser(text, allowedCodes(sender, PermissionNodes.CHAT_COLOR, PermissionNodes.CHAT_FORMAT, PermissionNodes.CHAT_MAGIC))));
+
+		if (wrapper != null) {
+			formatted = TextFormatter.format(wrapper, Messages.placeholders("chat", formatted));
+		}
+
 		int heard = 0;
 		double radiusSq = (double) config.localRadius * config.localRadius;
 
@@ -136,6 +141,17 @@ public final class ChatService {
 		}
 
 		return false;
+	}
+
+	/** The first group format the player has (chat.group-formats, in order), or chat.format. */
+	private static String format(ServerPlayer player, EssentialsConfig.Chat config) {
+		for (Map.Entry<String, String> group : config.groupFormats.entrySet()) {
+			if (group.getValue() != null && Perms.check(player, Perms.named(PermissionNodes.CHAT_GROUP, group.getKey()))) {
+				return group.getValue();
+			}
+		}
+
+		return config.format;
 	}
 
 	/** Prefix or suffix meta from the permission mod (e.g. LuckPerms), parsed for & codes. */
@@ -168,7 +184,7 @@ public final class ChatService {
 	 */
 	public static void sendPrivate(CommandSourceStack source, ServerPlayer target, String text) {
 		ServerPlayer sender = source.getPlayer();
-		Component senderName = sender != null ? DisplayNames.of(sender) : Component.literal(source.getTextName());
+		Component senderName = DisplayNames.of(source);
 		Component targetName = DisplayNames.of(target);
 		TextFormatter.Allowed allowed = sender == null
 				? TextFormatter.Allowed.ALL
@@ -227,7 +243,7 @@ public final class ChatService {
 	/** Sends a private message to the console (used by /reply when the last message came from the console). */
 	public static void sendToConsole(ServerPlayer sender, String text) {
 		Component body = TextFormatter.parseUser(text, Perms.check(sender, PermissionNodes.MSG_COLOR) ? TextFormatter.Allowed.ALL : TextFormatter.Allowed.NONE);
-		Component consoleName = Component.literal("Console");
+		Component consoleName = Messages.get("general.console-name");
 		Messages.send(sender, "msg.format-sender", "receiver", consoleName, "sender", DisplayNames.of(sender), "message", body);
 		Messages.log(Messages.get("msg.format-receiver", "receiver", consoleName, "sender", DisplayNames.of(sender), "message", body));
 		REPLY.put(sender.getUUID(), CONSOLE);

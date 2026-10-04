@@ -105,6 +105,7 @@ Placeholders: `<name>` is a warp or kit name, `<number>` is a whole number.
 | `essentials.chat.color` | `op` | Use & color codes (0-9, a-f and &#RRGGBB) in public chat. |
 | `essentials.chat.format` | `op` | Use &l &m &n &o &r formatting codes in public chat. |
 | `essentials.chat.magic` | `op` | Use the &k obfuscated code in public chat. |
+| `essentials.chat.group.<name>` | `none` | Chat with the format chat.group-formats.<name> from config.json. The first group in config order that a player has wins. |
 
 ## Player
 
@@ -198,7 +199,8 @@ Placeholders: `<name>` is a warp or kit name, `<number>` is a whole number.
 | `essentials.tempban.exempt` | `op` | Cannot be temp-banned (checked while online). |
 | `essentials.kick` | `op` | Use /kick <player> [reason]. |
 | `essentials.kick.exempt` | `op` | Cannot be kicked with /kick. |
-| `essentials.jail` | `op` | Use /jail <player> <jail> [duration] [reason] and /jails. |
+| `essentials.jail` | `op` | Use /jail <player> <jail> [duration] [reason]. |
+| `essentials.jails` | `op` | Use /jails to list jails. |
 | `essentials.jail.exempt` | `op` | Cannot be jailed while online. |
 | `essentials.setjail` | `op` | Use /setjail <name> to create or move a jail. |
 | `essentials.deljail` | `op` | Use /deljail <name>. |

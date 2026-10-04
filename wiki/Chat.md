@@ -2,10 +2,20 @@
 
 ## Public chat
 
-With `chat.format-enabled` (default), every chat line is rebuilt from `chat.format`:
+With `chat.format-enabled` (default), every chat line is rebuilt from the format in `config.json`:
 
 ```json
-"chat.format": "{prefix}{displayname}{suffix}&7: &f{message}"
+"chat": {
+  "format-enabled": true,
+  "format": "{prefix}{displayname}{suffix}&7: &f{message}",
+  "group-formats": {
+    "admin": "&4[Admin] &c{displayname}&7: &f{message}",
+    "mod": "&2[Mod] &a{displayname}&7: &f{message}",
+    "vip": "&6[VIP] &e{displayname}&7: &f{message}"
+  },
+  "local-format": "&7[L] {chat}",
+  "global-format": "&6[G] {chat}"
+}
 ```
 
 | Placeholder | Value |
@@ -15,6 +25,23 @@ With `chat.format-enabled` (default), every chat line is rebuilt from `chat.form
 | `{prefix}`, `{suffix}` | `prefix`/`suffix` meta from the permission mod (LuckPerms `setprefix`/`setsuffix`), & codes parsed |
 | `{world}` | Dimension name |
 | `{message}` | The message |
+
+### Group formats
+
+`chat.group-formats` gives groups their own chat line. A player with `essentials.chat.group.<name>` uses
+that entry instead of `chat.format`; entries are checked **in the order they appear in the file** and the
+first match wins, so put the highest rank first. Nobody has these nodes by default (`none`), so the example
+entries do nothing until you grant them:
+
+```
+/lp group admin permission set essentials.chat.group.admin true
+/lp group vip permission set essentials.chat.group.vip true
+```
+
+Add, rename or remove entries freely; the node follows the key (`"builder": ...` →
+`essentials.chat.group.builder`). Without a permission mod, grant one to everyone through
+`permissions.defaults`, e.g. `"essentials.chat.group.vip": "all"`. Alternatively keep one `chat.format` and
+use LuckPerms prefixes (`{prefix}`).
 
 Colors in messages:
 
@@ -34,8 +61,9 @@ keep vanilla's signed chat untouched; mutes, jail rules and ignore lists still w
 ### Local chat
 
 `chat.local-radius` ≥ 0 turns on local chat: only players in the same dimension within that many
-blocks see a message (`chat.local-format`). Messages starting with `chat.global-prefix` (`!`) go to
-everyone (`chat.global-format`). If nobody is in range the sender gets `chat.nobody-heard`.
+blocks see a message, wrapped in `chat.local-format` (`{chat}` is the normal chat line). Messages starting
+with `chat.global-prefix` (`!`) go to everyone, wrapped in `chat.global-format`. If nobody is in range the
+sender gets the `chat.nobody-heard` message.
 
 ## Private messages
 

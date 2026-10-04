@@ -127,7 +127,7 @@ Commands marked **replaces vanilla** remove the vanilla command of the same name
 | `/tempban <player> <duration> [reason]` | tban | `essentials.tempban` | Timed ban in vanilla's ban list. Exempt: `essentials.tempban.exempt`. |
 | `/kick <player> [reason]` | | `essentials.kick` | Kick. Exempt: `essentials.kick.exempt`. **Replaces vanilla /kick**. |
 | `/jail <player> <jail> [duration] [reason]` | | `essentials.jail` | Jail (offline too). Exempt: `essentials.jail.exempt`. |
-| `/jails` | | `essentials.jail` | List jails. |
+| `/jails` | | `essentials.jails` | List jails. |
 | `/setjail <name>` | createjail | `essentials.setjail` | Create or move a jail. |
 | `/deljail <name>` | remjail, rmjail | `essentials.deljail` | Delete a jail and free its prisoners. |
 | `/unjail <player>` | | `essentials.unjail` | Release. |

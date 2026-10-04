@@ -2,6 +2,8 @@ package com.roorogeo.essentials.config;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -100,6 +102,26 @@ public final class ConfigManager {
 		}, AsyncFileWriter.executor()).thenAcceptAsync(ConfigManager::apply, serverExecutor);
 	}
 
+	/**
+	 * Replaces null fields with their defaults, also inside every section (e.g. {@code "teleport": {"sound": null}}),
+	 * so a stray null in config.json can never cause an error later.
+	 */
+	private static void repairNulls(Object loaded, Object defaults) throws IllegalAccessException {
+		for (Field field : loaded.getClass().getFields()) {
+			if (Modifier.isStatic(field.getModifiers())) {
+				continue;
+			}
+
+			Object value = field.get(loaded);
+
+			if (value == null) {
+				field.set(loaded, field.get(defaults));
+			} else if (field.getType().getDeclaringClass() == EssentialsConfig.class) {
+				repairNulls(value, field.get(defaults));
+			}
+		}
+	}
+
 	private static EssentialsConfig readConfig() throws IOException {
 		EssentialsConfig loaded = null;
 
@@ -119,16 +141,10 @@ public final class ConfigManager {
 
 	/** Gson leaves fields null when the JSON has an explicit null, and replaces whole maps; repair both. */
 	private static void fillDefaults(EssentialsConfig loaded) {
-		EssentialsConfig defaults = new EssentialsConfig();
-
-		for (var field : EssentialsConfig.class.getFields()) {
-			try {
-				if (field.get(loaded) == null) {
-					field.set(loaded, field.get(defaults));
-				}
-			} catch (IllegalAccessException e) {
-				throw new IllegalStateException(e);
-			}
+		try {
+			repairNulls(loaded, new EssentialsConfig());
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
 		}
 
 		Map<String, EssentialsConfig.CommandSettings> commands = new LinkedHashMap<>();

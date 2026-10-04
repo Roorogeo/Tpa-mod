@@ -69,7 +69,7 @@ Replaces vanilla `/kick` (disable `commands.kick` to keep vanilla's). The reason
 |---|---|
 | `/setjail <name>` | `essentials.setjail` — create or move a jail at your position |
 | `/deljail <name>` | `essentials.deljail` — delete a jail; everyone in it is released |
-| `/jails` | `essentials.jail` |
+| `/jails` | `essentials.jails` |
 | `/jail <player> <jail> [duration] [reason]` | `essentials.jail` |
 | `/unjail <player>` | `essentials.unjail` |
 | — | `essentials.jail.exempt` (checked while the target is online) |

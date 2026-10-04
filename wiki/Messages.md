@@ -1,6 +1,6 @@
 # Messages (`config/essentials/messages.json`)
 
-Every line of text a player can see comes from `messages.json`. The file is created with every key on
+Every line of text a player can see comes from `messages.json`, except the public chat format, which is in `config.json` (see [Chat](Chat.md#public-chat)). The file is created with every key on
 first start; keys added by updates are appended automatically, and your edits are kept. Apply edits with
 `/essentials reload`.
 
@@ -63,21 +63,14 @@ These messages become clickable automatically:
 | `tpa.button-deny` | `/tpdeny <player>` | `tpa.button-deny-hover` |
 | `tpa.button-cancel` | `/tpacancel <player>` | `tpa.button-cancel-hover` |
 
-## Chat format placeholders
+## Chat format
 
-`chat.format`, `chat.local-format` and `chat.global-format` support:
-
-| Placeholder | Value |
-|---|---|
-| `{displayname}` | Nickname (with prefix) or account name, hover shows the real name |
-| `{name}` / `{player}` | Account name |
-| `{prefix}` / `{suffix}` | `prefix` / `suffix` meta from the permission mod (LuckPerms: `/lp group vip meta setprefix "&6[VIP] "`) |
-| `{world}` | Dimension name, e.g. `overworld` |
-| `{message}` | The message, with the colors the player may use |
+The public chat format (`format`, `group-formats`, `local-format`, `global-format`) is in `config.json` →
+`chat`, not here. See [Chat](Chat.md#public-chat).
 
 ## Every message
 
-335 messages.
+333 messages.
 
 
 ### Tag
@@ -106,6 +99,7 @@ These messages become clickable automatically:
 | `general.version` | `&6Essentials &e{version}&6. Sub-commands: &e/essentials reload` | `{version}` |
 | `general.target-offline` | `&e{player}&c is not online.` | `{player}` |
 | `general.no-reason` | `No reason given` |  |
+| `general.console-name` | `&dConsole` | — (the console's name in /msg, /reply, /mail and /me) |
 
 ### Durations and dates
 
@@ -305,9 +299,6 @@ These messages become clickable automatically:
 
 | Key | Default | Placeholders |
 |---|---|---|
-| `chat.format` | `{prefix}{displayname}{suffix}&7: &f{message}` | `{displayname}`, `{message}`, `{name}`, `{player}`, `{prefix}`, `{suffix}`, `{world}` |
-| `chat.local-format` | `&7[L] {prefix}{displayname}{suffix}&7: &f{message}` | `{displayname}`, `{message}`, `{name}`, `{player}`, `{prefix}`, `{suffix}`, `{world}` |
-| `chat.global-format` | `&6[G] {prefix}{displayname}{suffix}&7: &f{message}` | `{displayname}`, `{message}`, `{name}`, `{player}`, `{prefix}`, `{suffix}`, `{world}` |
 | `chat.nobody-heard` | `&7Nobody is close enough to hear you. Start your message with &e{global-prefix}&7 to talk to everyone.` | `{global-prefix}` |
 | `chat.muted` | `&cYou are muted. &7Expires: {time}. Reason: {reason}` | `{reason}`, `{time}` |
 | `chat.jailed` | `&cYou can't chat while jailed.` |  |
