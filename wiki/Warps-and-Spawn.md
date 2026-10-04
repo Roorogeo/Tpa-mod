@@ -11,6 +11,9 @@
 | `/setwarp <name>` | `essentials.setwarp` |
 | `/delwarp <name>` | `essentials.delwarp` |
 
+Warps from a previous mod's `homewarps.json` are imported automatically on the first start; see
+[Homes → Importing](Homes.md#importing-homes-from-homewarpsjson).
+
 - Warps are server-wide and stored in `config/essentials/warps.json`.
 - Names follow `warps.name-pattern`; `others` is reserved (it would clash with `essentials.warp.others`).
 - Per-warp nodes default to **everyone**, so new warps are public. Lock one with

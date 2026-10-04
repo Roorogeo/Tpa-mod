@@ -68,16 +68,19 @@ Groups inherit, so an MVP who also inherits VIP's `multiple.5` gets 10: the high
 
 ## Importing homes from `homewarps.json`
 
-If the server used a home mod that stored everything in `homewarps.json`, Essentials takes those homes
-over automatically, so players keep every home when you switch:
+If the server used a home mod that stored everything in `homewarps.json`, Essentials takes its homes
+and warps over automatically, so players keep every home when you switch:
 
 1. Stop the server.
 2. Remove the old home mod's jar from `mods/` and add Essentials. **Leave `homewarps.json` where it is.**
-3. Start the server. While loading, Essentials reads the file and adds every home to its owner's
-   Essentials data, then renames the file to `homewarps.json.imported`. The log says what happened:
+3. Start the server. While loading, Essentials reads the file, adds every home to its owner's
+   Essentials data and every warp to `warps.json`, then renames the file to `homewarps.json.imported`.
+   The log says what happened:
 
    ```
-   Imported 152 homes of 47 players from /srv/mc/config/homewarps.json (0 already existed in Essentials, 0 invalid). The file was renamed to homewarps.json.imported
+   homewarps.json: imported 158 homes of 51 players (0 already existed in Essentials, 0 invalid)
+   homewarps.json: imported 1 warps (0 already existed in Essentials, 0 invalid)
+   Finished importing /srv/mc/config/homewarps.json; the file was renamed to homewarps.json.imported
    ```
 
 Details:
@@ -92,9 +95,11 @@ Details:
   (`base2`). Every renamed home is listed in the log.
 - Dimensions are kept, so Nether and End homes work as before.
 - If a player already has an Essentials home with the same name, the Essentials home is kept.
-- Warps in the file (`"warps"`) are not imported; recreate them with `/setwarp`.
+- Warps (`"warps"` in the file) are imported into `warps.json` with the same naming rules. A warp that
+  already exists in Essentials is kept. Imported warps are usable by everyone by default, like any warp
+  (`essentials.warp.<name>`, see [Warps and Spawn](Warps-and-Spawn.md)).
 - The import runs once. To run it again, rename `homewarps.json.imported` back to `homewarps.json` and
   restart; homes that already exist are skipped, so nothing is duplicated.
-- Set `homes.import-homewarps` to `false` in `config.json` to turn the import off.
+- Set `homes.import-homewarps` to `false` in `config.json` to turn the import (homes and warps) off.
 - If the player files themselves fail to load, the import is skipped (and logged), so existing
   Essentials data is never overwritten.

@@ -47,15 +47,16 @@ public final class DataLoader {
 		CompletableFuture.allOf(players, warps, jails, spawn, kits, homewarps).handle((ignored, error) -> {
 			server.execute(() -> {
 				install(players, "player data", PlayerDataStore::install);
+				install(warps, "warps.json", NamedLocations.WARPS::install);
 
-				// Never import on top of player data that failed to load: saving would replace the real files.
-				if (players.isCompletedExceptionally()) {
-					Essentials.LOGGER.error("Not importing {} because player data could not be loaded", HomewarpsImport.FILE_NAME);
+				// After players and warps.json, so the imported homes and warps are added to what was loaded.
+				// Never import on top of data that failed to load: saving would replace the real files.
+				if (players.isCompletedExceptionally() || warps.isCompletedExceptionally()) {
+					Essentials.LOGGER.error("Not importing {} because player data or warps.json could not be loaded", HomewarpsImport.FILE_NAME);
 				} else {
 					install(homewarps, HomewarpsImport.FILE_NAME, found -> HomewarpsImport.install(server, found));
 				}
 
-				install(warps, "warps.json", NamedLocations.WARPS::install);
 				install(jails, "jails.json", NamedLocations.JAILS::install);
 				install(spawn, "spawn.json", SpawnStore::install);
 				install(kits, "kits.json", json -> KitStore.install(json, server.registryAccess()));
