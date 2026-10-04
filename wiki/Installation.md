@@ -35,6 +35,12 @@ config/essentials/
     └── <uuid>.json  one file per player
 ```
 
+## Switching from another home mod
+
+If your previous home mod kept its homes in `homewarps.json`, leave that file in place when you swap the
+jars. Essentials imports every home on its first start and renames the file afterwards. See
+[Homes → Importing](Homes.md#importing-homes-from-homewarpsjson).
+
 ## First steps
 
 ```

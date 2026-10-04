@@ -37,6 +37,8 @@ public final class BaltopCommand extends EssentialsCommand {
 	private static int show(CommandSourceStack source, int page) throws CommandSyntaxException {
 		BalanceCommand.requireEconomy();
 		List<PlayerData> players = new ArrayList<>(PlayerDataStore.all());
+		// Players whose name isn't known yet (homes imported before they joined) can't be listed by name.
+		players.removeIf(data -> data.name.isEmpty());
 		players.sort(Comparator.comparingDouble((PlayerData data) -> data.balance).reversed());
 		int pageSize = Math.max(1, ConfigManager.config().economy.baltopPageSize);
 		int pages = Math.max(1, (players.size() + pageSize - 1) / pageSize);

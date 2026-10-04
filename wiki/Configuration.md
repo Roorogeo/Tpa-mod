@@ -109,6 +109,7 @@ water counts as safe unless `water-is-unsafe`). Bypass: `essentials.teleport.saf
 | `name-pattern` | `[a-z0-9_-]{1,32}` | Allowed home names (a Java regex, checked after lower-casing). |
 | `list-when-ambiguous` | `true` | `/home` with several homes and none named `default-home-name` lists them. `false` uses `default-home-name`. |
 | `allowed-dimensions` | `[]` | Dimensions where homes may be set, e.g. `["minecraft:overworld"]`. Empty = everywhere. |
+| `import-homewarps` | `true` | On startup, import homes from the previous home mod's `homewarps.json` once (see [Homes](Homes.md#importing-homes-from-homewarpsjson)). |
 
 Limit rules are explained on [Homes](Homes.md).
 
