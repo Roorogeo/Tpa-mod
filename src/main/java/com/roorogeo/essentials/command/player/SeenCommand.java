@@ -37,7 +37,8 @@ public final class SeenCommand extends EssentialsCommand {
 					if (online != null && VanishService.canSee(source, online)) {
 						send(source, "seen.online", "player", data.name, "time", Durations.format(now - data.sessionStart));
 					} else {
-						long since = online != null ? data.sessionStart : data.lastSeen;
+						// Players whose session never ended cleanly (crash) have no last-seen time yet.
+						long since = online != null ? data.sessionStart : data.lastSeen > 0 ? data.lastSeen : data.firstJoin;
 						send(source, "seen.offline", "player", data.name, "time", Durations.format(now - since));
 					}
 

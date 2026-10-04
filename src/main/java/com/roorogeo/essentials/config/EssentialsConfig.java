@@ -416,7 +416,7 @@ public final class EssentialsConfig {
 		map.put("tp", new CommandSettings(List.of("tpo"), 0, 0));
 		map.put("tphere", new CommandSettings(List.of("s", "tpohere"), 0, 0));
 		map.put("tpall", new CommandSettings(List.of(), 0, 0));
-		map.put("back", settings("return"));
+		map.put("back", settings());
 		map.put("top", settings());
 		map.put("rtp", new CommandSettings(List.of("wild", "randomtp"), -1, 300));
 		// Chat

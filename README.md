@@ -1,91 +1,91 @@
-# TPA Mod
+# Essentials for Fabric
 
-A simple, server-side Fabric mod for Minecraft **26.3** that adds teleport requests, homes and warps.
-Every teleport has a **10 second warmup**: if you move during it, the teleport is cancelled.
+A **server-side** Fabric mod for Minecraft **26.2** that brings the core of EssentialsX to Fabric:
+teleports, homes, warps, teleport requests, chat, private messages, mail, nicknames, an economy, kits,
+moderation tools, world controls and combat tagging.
 
-Only requires **Fabric API**. Clients don't need to install it.
+- **Vanilla clients join without installing anything.** The mod is `"environment": "server"`.
+- **A permission node for every command and every sub-feature**, checked through
+  [fabric-permissions-api](https://github.com/lucko/fabric-permissions-api) (bundled), so
+  [LuckPerms](https://luckperms.net) works out of the box. Commands a player can't use are hidden from
+  them, including tab completion.
+- **Everything is configurable**: every number and toggle in `config.json`, every message (with `&` colors,
+  hex colors and placeholders) in `messages.json`, every permission default, and every command can be
+  disabled, aliased or given a cooldown.
+- **No blocking I/O**: data is loaded at startup and saved on a background thread, flushed on stop.
+
+## Requirements
+
+| | Version |
+|---|---|
+| Minecraft server | 26.2 |
+| Java | 25 |
+| Fabric Loader | 0.19.5+ |
+| Fabric API | 0.161.0+26.2 |
+| fabric-permissions-api | 0.7.0 (bundled in the jar) |
+| LuckPerms | optional |
+
+## Install
+
+1. Set up a Fabric 26.2 server and put Fabric API in `mods/`.
+2. Put `essentials-<version>.jar` in `mods/` (and LuckPerms, if you want it).
+3. Start the server. `config/essentials/` is created with `config.json`, `messages.json` and `kits.json`.
+4. In game: `/setspawn`, `/setwarp <name>`, `/setjail <name>`, `/createkit <name> <cooldown>`.
+5. Edit the config and apply it with `/essentials reload`.
 
 ## Commands
 
-| Command | Description |
+| Category | Commands |
 |---|---|
-| `/tpa <player>` | Ask to teleport to a player |
-| `/tpahere <player>` | Ask a player to teleport to you |
-| `/tpaccept [player]` | Accept a request (newest if no name given) |
-| `/tpdeny [player]` | Deny a request |
-| `/tpcancel` | Cancel your outgoing request |
-| `/home [name]` | Teleport to a home (defaults to `home`) |
-| `/sethome [name]` | Set a home at your position |
-| `/delhome <name>` | Delete a home |
-| `/homes` | List your homes (clickable) |
-| `/warp <name>` | Teleport to a warp |
-| `/warps` | List warps (clickable) |
-| `/setwarp <name>` | Create or move a warp (op) |
-| `/delwarp <name>` | Delete a warp (op) |
-| `/tpamod reload` | Reload config and warps (op) |
+| Teleport | `/spawn` `/setspawn` `/home` `/sethome` `/delhome` `/homes` `/warp` `/setwarp` `/delwarp` `/warps` `/tpa` `/tpahere` `/tpaccept` `/tpdeny` `/tpacancel` `/tp` `/tphere` `/tpall` `/back` `/top` `/rtp` |
+| Chat | `/msg` `/reply` `/mail` `/ignore` `/nick` `/realname` `/me` `/broadcast` `/socialspy` |
+| Player | `/heal` `/feed` `/fly` `/god` `/speed` `/gamemode` (`/gmc` `/gms` `/gma` `/gmsp`) `/afk` `/hat` `/repair` `/enderchest` `/workbench` `/anvil` `/invsee` `/clearinventory` `/suicide` `/near` `/seen` `/whois` `/list` `/ping` `/combat` |
+| Economy | `/balance` `/pay` `/baltop` `/eco give\|take\|set\|reset` |
+| Kits | `/kit` `/kits` `/createkit` `/delkit` |
+| Moderation | `/mute` `/unmute` `/tempban` `/kick` `/jail` `/jails` `/setjail` `/deljail` `/unjail` `/vanish` `/freeze` `/sudo` |
+| World | `/time` `/day` `/night` `/weather` `/sun` `/rain` |
+| Admin | `/essentials reload` |
 
-Requests expire after 60 seconds and show clickable **[Accept]** / **[Deny]** buttons.
+Full syntax, aliases and nodes: [wiki/Commands.md](wiki/Commands.md).
 
-## Permissions
+## Highlights
 
-Permissions use Fabric API's permission API, which is supported by LuckPerms.
-Without a permission mod, the defaults below apply ("op" = op level 2 or higher).
+- **Teleports** with configurable warmup (cancelled on move or damage), cooldowns (shared or per command),
+  cross-dimension support, asynchronous chunk loading and a safe-destination search. `/back` remembers
+  the location before every teleport and on death.
+- **Home limits** from `essentials.sethome.multiple.<n>` (highest wins), clamped to
+  `homes.absolute-max-homes`; `essentials.sethome.unlimited`; overwriting a home never counts against
+  the limit; `/homes` shows `used/max`.
+- **Combat tagging**: PvP damage (melee, arrows, tridents, potions, end crystals, TNT, tamed pets) tags both
+  players for 30 s (configurable), shows a countdown in the action bar, blocks a configurable command
+  list, cancels warmups, turns off fly and god mode, and kills players who log out while tagged (never on
+  kicks or shutdown).
+- **Chat**: format, local chat radius, colors by permission, private messages with social spy, mail,
+  ignore lists, nicknames (also in the tab list), AFK.
+- **Economy** with `/pay`, `/baltop` and admin `/eco`; **kits** with per-kit cooldowns or one-time kits;
+  **moderation** with mutes, temp bans (vanilla ban list), jails, vanish, freeze and sudo.
 
-| Node | Default | |
-|---|---|---|
-| `tpamod.tpa` | everyone | `/tpa`, `/tpcancel` |
-| `tpamod.tpahere` | everyone | `/tpahere` |
-| `tpamod.tpaccept` | everyone | `/tpaccept`, `/tpdeny` |
-| `tpamod.home` | everyone | `/home`, `/homes` |
-| `tpamod.sethome` | everyone | `/sethome` |
-| `tpamod.delhome` | everyone | `/delhome` |
-| `tpamod.warp` | everyone | `/warp`, `/warps` |
-| `tpamod.warp.<name>` | everyone | Use a specific warp (set to `false` to lock it) |
-| `tpamod.setwarp` | op | `/setwarp` |
-| `tpamod.delwarp` | op | `/delwarp` |
-| `tpamod.reload` | op | `/tpamod reload` |
-| `tpamod.bypass.warmup` | op | Teleport instantly, no warmup |
-| `tpamod.homes.unlimited` | op | No home limit |
-| `tpamod.homes.limit.<n>` | none | Allow `n` homes (highest granted wins) |
+## Documentation
 
-### Limiting homes
-
-The home limit is resolved in this order:
-
-1. `tpamod.homes.unlimited` → no limit
-2. Integer meta `tpamod:max_homes`, e.g. `/lp group vip meta set tpamod:max_homes 10`
-3. Highest granted `tpamod.homes.limit.<n>`, e.g. `/lp group vip permission set tpamod.homes.limit.10 true`
-   (only the values listed in `homeLimitSteps` in the config are checked)
-4. `defaultMaxHomes` from the config (1)
-
-## Config
-
-`config/tpamod.json`:
-
-```json
-{
-  "warmupSeconds": 10,
-  "moveTolerance": 0.2,
-  "requestTimeoutSeconds": 60,
-  "defaultMaxHomes": 1,
-  "homeLimitSteps": [1, 2, 3, 5, 10, 15, 20, 25, 50, 100]
-}
-```
-
-- `warmupSeconds`: set to `0` to disable the warmup.
-- `moveTolerance`: blocks a player may drift during the warmup. Looking around never cancels.
-
-## Storage
-
-- Homes are stored on the player data (Fabric data attachment), so they are kept on death.
-- Warps are stored in `<world>/tpamod/warps.json`.
+| | |
+|---|---|
+| [PERMISSIONS.md](PERMISSIONS.md) | Every permission node, what it does and its default (generated from the code) |
+| [Wiki home](wiki/Home.md) | Start here |
+| [Installation](wiki/Installation.md) · [Configuration](wiki/Configuration.md) · [Messages](wiki/Messages.md) · [Permissions](wiki/Permissions.md) | Setup and customization |
+| [Commands](wiki/Commands.md) · [Teleportation](wiki/Teleportation.md) · [Homes](wiki/Homes.md) · [Warps and Spawn](wiki/Warps-and-Spawn.md) · [Teleport Requests](wiki/Teleport-Requests.md) | Teleport features |
+| [Combat Tagging](wiki/Combat-Tagging.md) · [Chat](wiki/Chat.md) · [Player Utilities](wiki/Player-Utilities.md) · [Economy](wiki/Economy.md) · [Kits](wiki/Kits.md) · [Moderation](wiki/Moderation.md) · [World](wiki/World.md) | Features |
+| [Data and Storage](wiki/Data-and-Storage.md) · [Technical Notes](wiki/Technical-Notes.md) · [Building](wiki/Building.md) · [FAQ](wiki/FAQ.md) | Internals and help |
 
 ## Building
 
-Requires Java 25.
-
-```sh
+```
 ./gradlew build
 ```
 
-The jar ends up in `build/libs/`.
+The jar is written to `build/libs/essentials-<version>.jar`. Requires JDK 25. See
+[wiki/Building.md](wiki/Building.md). After changing permission nodes, regenerate `PERMISSIONS.md` with
+`java src/main/java/com/roorogeo/essentials/perm/PermissionNodes.java PERMISSIONS.md` (CI checks it).
+
+## License
+
+MIT, see [LICENSE](LICENSE).

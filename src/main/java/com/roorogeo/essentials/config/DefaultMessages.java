@@ -25,7 +25,6 @@ public final class DefaultMessages {
 		m.put("general.player-only", "&cOnly players can use this command.");
 		m.put("general.player-not-found", "&cPlayer &e{player}&c was not found.");
 		m.put("general.player-never-joined", "&e{player}&c has never played on this server.");
-		m.put("general.data-loading", "&cPlayer data is still loading, try again in a moment.");
 		m.put("general.command-cooldown", "&cYou must wait &e{time}&c before using &e/{command}&c again.");
 		m.put("general.combat-blocked", "&cYou can't use &e/{command}&c while in combat! &7({time} left)");
 		m.put("general.muted-blocked", "&cYou can't use &e/{command}&c while muted.");
@@ -176,7 +175,6 @@ public final class DefaultMessages {
 		m.put("chat.nobody-heard", "&7Nobody is close enough to hear you. Start your message with &e{global-prefix}&7 to talk to everyone.");
 		m.put("chat.muted", "&cYou are muted. &7Expires: {time}. Reason: {reason}");
 		m.put("chat.jailed", "&cYou can't chat while jailed.");
-		m.put("chat.frozen", "&cYou can't chat while frozen.");
 
 		// Private messages
 		m.put("msg.format-sender", "&7[&eme &7-> &e{receiver}&7] &f{message}");

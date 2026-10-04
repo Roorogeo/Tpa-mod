@@ -147,6 +147,7 @@ public final class CommandRegistry {
 	public static void registerAll(CommandDispatcher<CommandSourceStack> dispatcher) {
 		REGISTERED.clear();
 		Map<String, EssentialsConfig.CommandSettings> settings = ConfigManager.config().commands;
+		List<String> replaced = new ArrayList<>();
 		int count = 0;
 
 		for (EssentialsCommand command : createAll()) {
@@ -157,7 +158,11 @@ public final class CommandRegistry {
 			}
 
 			for (String label : command.labels(commandSettings)) {
-				removeNode(dispatcher.getRoot(), label);
+				if (dispatcher.getRoot().getChild(label) != null) {
+					replaced.add(label);
+					removeNode(dispatcher.getRoot(), label);
+				}
+
 				dispatcher.register(command.create(label));
 				REGISTERED.add(label);
 			}
@@ -166,6 +171,11 @@ public final class CommandRegistry {
 		}
 
 		Essentials.LOGGER.info("Registered {} Essentials commands ({} names including aliases)", count, REGISTERED.size());
+
+		if (!replaced.isEmpty()) {
+			Essentials.LOGGER.info("Replaced existing commands: /{} (disable or rename them under \"commands\" in config.json to keep the originals)",
+					String.join(", /", replaced));
+		}
 	}
 
 	/** Re-registers after /essentials reload so enable toggles and aliases apply immediately. */
