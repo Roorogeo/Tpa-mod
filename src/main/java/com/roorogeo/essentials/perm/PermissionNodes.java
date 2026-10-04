@@ -105,7 +105,7 @@ public final class PermissionNodes {
 	public static final Node RTP_OTHERS = add("essentials.rtp.others", Level.OP, TELEPORT, "Use /rtp <player> to send another player to a random location.");
 	public static final Node TELEPORT_COOLDOWN_BYPASS = add("essentials.teleport.cooldown.bypass", Level.OP, TELEPORT, "Skip the teleport cooldown.");
 	public static final Node TELEPORT_DELAY_BYPASS = add("essentials.teleport.delay.bypass", Level.OP, TELEPORT, "Skip the teleport warmup delay.");
-	public static final Node TELEPORT_SAFETY_BYPASS = add("essentials.teleport.safety.bypass", Level.NONE, TELEPORT, "Skip the safe-destination check and teleport even into unsafe spots.");
+	public static final Node TELEPORT_SAFETY_BYPASS = add("essentials.teleport.safety.bypass", Level.OP, TELEPORT, "Skip the safe-destination check and teleport even into unsafe spots.");
 
 	// ---------------------------------------------------------------- Chat
 	public static final Node MSG = add("essentials.msg", Level.ALL, CHAT, "Use /msg <player> <message> to send a private message.");

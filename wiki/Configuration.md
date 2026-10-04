@@ -94,7 +94,7 @@ See [Permissions](Permissions.md) for the full lookup order.
 A spot is safe when the player's hitbox fits without touching blocks, nothing dangerous is at the feet,
 head or ground, and there is ground to stand on (players who can fly don't need ground; floating in
 water counts as safe unless `water-is-unsafe`). Bypass: `essentials.teleport.safety.bypass` (default
-`none`).
+`op`; set it to `none` in `permissions.defaults` if operators should get safe teleports too).
 
 ---
 

@@ -77,7 +77,7 @@ Placeholders: `<name>` is a warp or kit name, `<number>` is a whole number.
 | `essentials.rtp.others` | `op` | Use /rtp <player> to send another player to a random location. |
 | `essentials.teleport.cooldown.bypass` | `op` | Skip the teleport cooldown. |
 | `essentials.teleport.delay.bypass` | `op` | Skip the teleport warmup delay. |
-| `essentials.teleport.safety.bypass` | `none` | Skip the safe-destination check and teleport even into unsafe spots. |
+| `essentials.teleport.safety.bypass` | `op` | Skip the safe-destination check and teleport even into unsafe spots. |
 
 ## Chat
 

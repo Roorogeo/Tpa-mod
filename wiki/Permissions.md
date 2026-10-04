@@ -38,7 +38,7 @@ every `op` node, command blocks have level 2.
   `essentials.command.cooldown.bypass`, `essentials.kit.cooldown.bypass`, `*.exempt`, ...). Cosmetic
   extras such as `/nick` and the color nodes are also op-only by default.
 - **Nobody**: `essentials.sethome.multiple.<number>` (you grant the number you want) and
-  `essentials.teleport.safety.bypass`.
+  `essentials.chat.group.<name>` (you grant the chat format a group should use).
 
 ## Hidden commands
 
